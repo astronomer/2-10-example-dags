@@ -26,15 +26,15 @@ def UI_dag():
 
     @task
     def log_coloring():
-        t_log.info("If I say 'error' the log line turns red!")
-        t_log.info("I warn you, this line turns yellow!")
-        t_log.info("By changing the keywords in the config I can make this important line turn red as well!")
-        print("Also works for regular but important print statements.")
+        # t_log.info("If I say 'error' the log line turns red!")
+        # t_log.info("I warn you, this line turns yellow!")
         print("This is a normal print statement.")
+        t_log.info("By changing the keywords in the config I can make this important line turn red!")
+        # print("Also works for regular but important print statements.")
 
-        t_log.error("The log-level also affects the output, in this case turning it red.")
-        t_log.warn("This log-level turns the line yellow.")
-        t_log.critical("This line is not red. But can be made red by adding 'critical' to the keyword list.")
+        # t_log.error("The log-level also affects the output, in this case turning it red.")
+        # t_log.warn("This log-level turns the line yellow.")
+        # t_log.critical("This line is not red. But can be made red by adding 'critical' to the keyword list.")
 
 
     @task 

@@ -1,2 +1,4 @@
+postgres:
+    port: "5435"
 project:
     name: 2-10-example-dags
