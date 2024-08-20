@@ -42,5 +42,7 @@ def attach_extra_info():
 
     use_outlet_events()
 
+    ## TODO: figure out the second way with traditional operators
+
 
 attach_extra_info()

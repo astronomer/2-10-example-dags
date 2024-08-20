@@ -6,7 +6,7 @@
 from airflow.decorators import dag, task
 import time
 
-@dag(start_date=None, schedule=None, catchup=False, tags=["2-10", "XCom .concat()"])
+@dag(start_date=None, schedule=None, catchup=False, tags=["2-10", "XCom .concat()", "demo"])
 def xcom_concat_taskflow():
 
     @task

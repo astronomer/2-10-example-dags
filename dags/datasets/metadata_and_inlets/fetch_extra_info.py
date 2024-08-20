@@ -26,12 +26,25 @@ def fetch_extra_info():
     # Task Flow API #
     # ------------- #
 
+    @task
+    def get_extra_triggering_run(**context):
+        # all events that triggered this specific DAG run
+        triggering_dataset_events = context["triggering_dataset_events"]
+        # the loop below wont run if the DAG is manually triggered
+        for dataset, dataset_event_list in triggering_dataset_events.items():
+            print(dataset)
+            print(dataset_event_list)
+            print(dataset_event_list[0].extra["myNum"])
+            # dataset_list[0].source_dag_run.run_id  # you can also fetch the run_id of the upstream DAG, this will AttributeError if the Trigger was the API!
+
+    get_extra_triggering_run()
+
     # Note that my_dataset_2 is NOT a Dataset this DAG is scheduled upon, any existing Dataset can be used as an inlet in any task
     @task(inlets=[my_dataset_2])
     def get_extra_inlet(**context):
         # inlet_events are listed earliest to latest by timestamp
         events = context["inlet_events"][my_dataset_2]
-        # protect against the dataset not existing
+        # protect against no previous events
         if len(events) == 0:
             print(f"No events for {my_dataset_2.uri}")
         else:
@@ -40,17 +53,7 @@ def fetch_extra_info():
 
     get_extra_inlet()
 
-    @task
-    def get_extra_triggering_run(**context):
-        # all events that triggered this specific DAG run
-        triggering_dataset_events = context["triggering_dataset_events"]
-        # the loop below wont run if the DAG is manually triggered
-        for dataset, dataset_list in triggering_dataset_events.items():
-            print(dataset, dataset_list)
-            print(dataset_list[0].extra)
-            # dataset_list[0].source_dag_run.run_id  # you can also fetch the run_id of the upstream DAG, this will AttributeError if the Trigger was the API!
-
-    get_extra_triggering_run()
+    ## TODO switch order
 
     # ----------------------------- #
     # Traditional Operators - Jinja #

@@ -14,7 +14,7 @@ t_log = logging.getLogger("airflow.task")
     start_date=None,
     schedule=None,
     catchup=False,
-    tags=["2-10", "UI"],
+    tags=["2-10", "UI", "demo"],
 )
 def UI_dag():
 
@@ -26,15 +26,15 @@ def UI_dag():
 
     @task
     def log_coloring():
-        # t_log.info("If I say 'error' the log line turns red!")
-        # t_log.info("I warn you, this line turns yellow!")
+        t_log.info("If I say 'error' the log line turns red!")
+        t_log.info("I warn you, this line turns yellow!")
         print("This is a normal print statement.")
         t_log.info("By changing the keywords in the config I can make this important line turn red!")
-        # print("Also works for regular but important print statements.")
+        print("Also works for regular but important print statements.")
 
-        # t_log.error("The log-level also affects the output, in this case turning it red.")
-        # t_log.warn("This log-level turns the line yellow.")
-        # t_log.critical("This line is not red. But can be made red by adding 'critical' to the keyword list.")
+        t_log.error("The log-level also affects the output, in this case turning it red.")
+        t_log.warn("This log-level turns the line yellow.")
+        t_log.critical("This line is not red. But can be made red by adding 'critical' to the keyword list.")
 
 
     @task 
@@ -42,8 +42,8 @@ def UI_dag():
         # 2.9 feature
 
         t_log.info("I'm a log that is always shown.")
-        t_log.info("::group::My log group!")
-        t_log.info("hi! I'm a hidden log! :)")
+        t_log.info("::group::My 😊 log group!")
+        t_log.info("hi! I'm a hidden log! 😊")
         t_log.info("::endgroup::")
         t_log.info("I'm not hidden either.")
 
