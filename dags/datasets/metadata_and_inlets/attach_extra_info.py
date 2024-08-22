@@ -21,6 +21,9 @@ my_dataset_2 = Dataset("x-dataset-metadata-2")
     schedule=None,
     catchup=False,
     tags=["2-10", "Dataset", "Metadata and Inlets", "demo"],
+    default_args={
+        'retries': 2
+    },
 )
 def attach_extra_info():
 

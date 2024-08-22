@@ -44,9 +44,10 @@ Most DAGs are ready to run and explore, their DAG Docs / docstrings explain what
 This repository contains the following files and folders:
 
 - `.astro`: files necessary for Astro CLI commands.
--  `dags`: all DAGs in your Airflow environment. Files in this folder will be parsed by the Airflow scheduler when looking for DAGs to add to your environment. You can add your own dagfiles in this folder.
-- `include`: supporting files that will be included in the Airflow environment. Among other files contains the code for the listener plugin in `include/listeners.py`.
+-  `dags`: all DAGs in your Airflow environment. Files in this folder will be parsed by the Airflow scheduler when looking for DAGs to add to your environment.
+- `include`: supporting files that will be included in the Airflow environment.
 - `plugins`: folder to place Airflow plugins. Contains a listener plugin.
+- `src`: image file for this Readme.
 - `tests`: folder to place pytests running on DAGs in the Airflow instance. Contains default tests.
 - `.astro-registry.yaml`: file to configure DAGs being uploaded to the [Astronomer registry](https://registry.astronomer.io/). Can be ignored for local development.
 - `.dockerignore`: list of files to ignore for Docker.
@@ -56,3 +57,9 @@ This repository contains the following files and folders:
 - `packages.txt`: system-level packages to be installed in the Airflow environment upon building of the Docker image. Empty.
 - `README.md`: this Readme.
 - `requirements.txt`: python packages to be installed to be used by DAGs upon building of the Docker image.
+
+## Appendix
+
+After all the DAGs in the [`dags/datasets/dataset_alias`](dags/datasets/dataset_alias) folder are run, the following dependency situation is created:
+
+![Screenshot of a slide showing the Datasets view for the DAGs in this folder: 1. upstream_produce_to_alias_A updates my_alias with x-dataset-A -> downstream_on_alias + downstream_on_dataset_a runs. 2. upstream_produce_to_alias_B updates my_alias with x-dataset-B -> downstream_on_alias runs. 3. upstream_produce_dataset_A updates x-dataset-A  -> downstream_on_alias + downstream_on_dataset_a runs (x-dataset-A is now associated with my_alias).](src/datasetalias_overview.png)
