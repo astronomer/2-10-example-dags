@@ -53,27 +53,6 @@ def fetch_extra_info():
 
     get_extra_inlet()
 
-    ## TODO switch order
-
-    # ----------------------------- #
-    # Traditional Operators - Jinja #
-    # ----------------------------- #
-
-    get_extra_inlet_bash_jinja = BashOperator(
-        task_id="get_extra_inlet_bash_jinja",
-        bash_command="echo {{ inlet_events['x-dataset-metadata-2'][-1].extra['myNum'] }} ",  # task will fail if the Dataset never had updates to it
-        # The below version returns an empty string if there are no previous dataset events or the extra is not present
-        # bash_command="echo {{ (inlet_events['x-dataset2'] | default([]) | last | default({})).extra.get('myNum', '') if (inlet_events['x-dataset2'] | default([]) | last | default({})).extra is defined else '' }}",  # Version that should never error
-        inlets=[my_dataset_2],
-    )
-
-    get_extra_triggering_run_bash_jinja = BashOperator(
-        task_id="get_extra_triggering_run_bash_jinja",
-        bash_command="echo {{ (triggering_dataset_events.values() | first | first).extra['myNum'] }} ",  # This statement errors when there are no triggering events, for example in a manual run!
-        # The below version returns an empty string if there are no triggering dataset events or the extra is not present
-        # bash_command="echo {{ (triggering_dataset_events.values() | default([]) | first | default({}) | first | default({})).extra.get('myNum', '') if (triggering_dataset_events.values() | default([]) | first | default({}) | first | default({})).extra is defined else '' }}",  # Version that should never error
-    )
-
     # -------------------------------- #
     # Traditional Operators - Callable #
     # -------------------------------- #
@@ -105,6 +84,25 @@ def fetch_extra_info():
     get_extra_triggering_run_bash_callable = BashOperator(
         task_id="get_extra_triggering_run_bash_callable",
         bash_command=get_extra_from_triggering_run_func,
+    )
+
+    # ----------------------------- #
+    # Traditional Operators - Jinja #
+    # ----------------------------- #
+
+    get_extra_inlet_bash_jinja = BashOperator(
+        task_id="get_extra_inlet_bash_jinja",
+        bash_command="echo {{ inlet_events['x-dataset-metadata-2'][-1].extra['myNum'] }} ",  # task will fail if the Dataset never had updates to it
+        # The below version returns an empty string if there are no previous dataset events or the extra is not present
+        # bash_command="echo {{ (inlet_events['x-dataset2'] | default([]) | last | default({})).extra.get('myNum', '') if (inlet_events['x-dataset2'] | default([]) | last | default({})).extra is defined else '' }}",  # Version that should never error
+        inlets=[my_dataset_2],
+    )
+
+    get_extra_triggering_run_bash_jinja = BashOperator(
+        task_id="get_extra_triggering_run_bash_jinja",
+        bash_command="echo {{ (triggering_dataset_events.values() | first | first).extra['myNum'] }} ",  # This statement errors when there are no triggering events, for example in a manual run!
+        # The below version returns an empty string if there are no triggering dataset events or the extra is not present
+        # bash_command="echo {{ (triggering_dataset_events.values() | default([]) | first | default({}) | first | default({})).extra.get('myNum', '') if (triggering_dataset_events.values() | default([]) | first | default({}) | first | default({})).extra is defined else '' }}",  # Version that should never error
     )
 
 

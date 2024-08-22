@@ -21,9 +21,7 @@ my_dataset_2 = Dataset("x-dataset-metadata-2")
     schedule=None,
     catchup=False,
     tags=["2-10", "Dataset", "Metadata and Inlets", "demo"],
-    default_args={
-        'retries': 2
-    },
+    default_args={"retries": 2},
 )
 def attach_extra_info():
 
@@ -39,13 +37,14 @@ def attach_extra_info():
     @task(outlets=[my_dataset_2])
     def use_outlet_events(**context):
         num = 42
-        context["outlet_events"][my_dataset_2].extra = {"myNum": num}
+        context["outlet_events"][my_dataset_2].extra = {
+            "myNum": num,
+            "myStr": "Lemons!",
+        }
 
         return "hello :)"
 
     use_outlet_events()
-
-    ## TODO: figure out the second way with traditional operators
 
 
 attach_extra_info()
