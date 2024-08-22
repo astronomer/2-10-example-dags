@@ -1,6 +1,6 @@
 # Apache Airflow 2.10 example DAGs
 
-This repository contains example DAGs showing features released in Apache Airflow 2.9. 
+This repository contains example DAGs showing features released in Apache Airflow 2.10 and shown in the [What's new in 2.10](https://www.astronomer.io/events/webinars/whats-new-in-airflow-2-10-video/) webinar.
 
 Aside from core Apache Airflow this project uses:
 - The [Astro CLI](https://docs.astronomer.io/astro/cli/install-cli) to run Airflow locally (version 1.28.1).

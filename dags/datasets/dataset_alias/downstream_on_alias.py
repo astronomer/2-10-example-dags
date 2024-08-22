@@ -10,7 +10,7 @@ import time
 
 t_log = logging.getLogger("airflow.task")
 
-my_alias_name = "my_alias_6"
+my_alias_name = "my_alias_7"
 
 
 @dag(
