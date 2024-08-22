@@ -14,9 +14,10 @@ For pinned versions of the provider packages see the `requirements.txt` file.
 This section explains how to run this repository with Airflow. 
 
 > [!NOTE]  
-> The `hook_lineage_example_dag` DAG in this repository requires additional connections or tools. 
-> You can define the Snowflake connection in the Airflow UI under **Admin > Connections** or by using the `.env` file with the format shown in `.env.example`.
-> To set up Marquez for the [`dags/hook_lineage/hook_lineage_example_dag.py](dags/hook_lineage/hook_lineage_example_dag.py) DAG, follow this [tutorial](https://www.astronomer.io/docs/learn/marquez).
+> The `lineage_example_dag` DAG in this repository requires additional connections and tools. 
+> You can define the Snowflake and AWS connection in the Airflow UI under **Admin > Connections** or by using the `.env` file with the format shown in `.env.example`.
+> To set up Marquez for the [`dags/hook_lineage/lineage_example_dag.py](dags/hook_lineage/lineage_example_dag.py) DAG, follow this [tutorial](https://www.astronomer.io/docs/learn/marquez).
+> Open Lineage provider support for hook-level lineage will be added to an upcoming provider release, see https://github.com/apache/airflow/pull/41482.
 
 See the [Manage Connections in Apache Airflow](https://docs.astronomer.io/learn/connections) guide for further instructions on Airflow connections. 
 

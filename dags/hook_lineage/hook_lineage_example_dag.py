@@ -1,14 +1,21 @@
 """
-### Emitting Lineage from a Hook
+### Lineage Example DAG
+
+NOTE: OpenLineage provider support for Hook lineage is incoming in the next release.
+See https://github.com/apache/airflow/pull/41482 for more information.
 """
 
 from airflow.decorators import dag, task
-from airflow.datasets import Dataset
 from airflow.providers.snowflake.hooks.snowflake import SnowflakeHook
 from airflow.providers.snowflake.operators.snowflake import SnowflakeOperator
+from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from pendulum import datetime
 
 from include.utils import get_adoption_data
+
+import os
+
+_MY_BUCKET = os.getenv("MY_BUCKET", "my-bucket")
 
 
 @dag(
@@ -18,13 +25,11 @@ from include.utils import get_adoption_data
     doc_md=__doc__,
     tags=["2-10", "lineage"],
 )
-def hook_lineage_example_dag():
+def lineage_example_dag():
 
-    @task 
-    def my_python_task():
-        print("Hello World")
-
-    my_python_task()
+    # --------------------------- #
+    # Basic Lineage Example using #
+    # --------------------------- #
 
     @task
     def get_data_from_api_1():
@@ -116,5 +121,35 @@ def hook_lineage_example_dag():
     create_table_center_1 >> data_1 >> create_combo_table >> combo
     create_table_center_2 >> data_2 >> create_combo_table >> combo
 
+    # -------------------------------------- #
+    # S3 Hook example for added Hook Lineage #
+    # -------------------------------------- #
 
-hook_lineage_example_dag()
+    @task
+    def s3_1():
+        import io
+
+        hook = S3Hook(aws_conn_id="aws_default")
+
+        file_obj = io.BytesIO(b"Hello, World!")
+
+        hook.load_file_obj(
+            file_obj=file_obj,
+            key="my_file6.txt",
+            bucket_name=_MY_BUCKET,
+        )
+
+    @task
+    def s3_2():
+        import io
+
+        hook = S3Hook(aws_conn_id="aws_default")
+
+        file_obj = hook.read_key(key="my_file6.txt", bucket_name=_MY_BUCKET)
+
+        return file_obj
+
+    s3_1() >> s3_2()
+
+
+lineage_example_dag()
