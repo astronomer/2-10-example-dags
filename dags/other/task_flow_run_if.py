@@ -23,7 +23,8 @@ def run_if_skip_if_example():
 
 
     def skip_decision(context):
-        return context["task_instance"].task_id.endswith("_skip_me")
+        task_id_ending_to_skip = "_skip_me"
+        return context["task_instance"].task_id.endswith(task_id_ending_to_skip)
 
     @task.skip_if(skip_decision)
     @task

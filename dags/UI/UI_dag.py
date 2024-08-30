@@ -14,6 +14,7 @@ t_log = logging.getLogger("airflow.task")
     start_date=None,
     schedule=None,
     catchup=False,
+    doc_md=__doc__,
     tags=["2-10", "UI", "demo"],
 )
 def UI_dag():
@@ -58,7 +59,7 @@ def UI_dag():
     @task
     def task_docs_two(greeting: str = "Hi"):
         """
-        Doc strings render as well! Very neat :)
+        Doc strings **render** as well! Very neat :)
         Args:
             greeting: str, (default: 'Hi')
         Returns:

@@ -57,7 +57,7 @@ def fetch_extra_info():
     # Traditional Operators - Callable #
     # -------------------------------- #
 
-    def get_extra_from_inlet_func(context, jinja_env):  # the two kwargs are mandatory
+    def get_extra_from_inlet_func(context, jinja_env):  # IMPORTANT! the two kwargs are mandatory
         # inlet_events are listed earliest to latest by timestamp
         events = context["inlet_events"][my_dataset_2]
         # protect against the dataset not existing
